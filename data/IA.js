@@ -126,23 +126,26 @@ class RealTimeOpportunityHunter {
         }
 
         analyzeCurrentSeason(destino) {
-            const now = new Date();
-            const month = now.getMonth() + 1;
-            const seasonalPatterns = {
-                "MCO": [12, 1, 2, 3, 6, 7], // Orlando - verão e Natal
-                "LIS": [6, 7, 8, 9], // Lisboa - verão europeu
-                "JFK": [5, 6, 7, 8, 9, 12], // NYC - verão e Natal
-                "MIA": [11, 12, 1, 2, 3, 4], // Miami - inverno
-                "MAD": [5, 6, 7, 8, 9], // Madrid - verão
-                "CDG": [5, 6, 7, 8, 9], // Paris - verão
-                "FLL": [11, 12, 1, 2, 3, 4] // Fort Lauderdale - inverno
-            };
-            
-            const isHighSeason = seasonalPatterns[destino]?.includes(month);
-            console.log(`📅 Mês ${month}, Alta temporada: ${isHighSeason}`);
-            
-            return isHighSeason ? 15 : 5;
-        }
+    const now = new Date();
+    const month = now.getMonth() + 1;
+
+    const seasonalPatterns = {
+        "MCO": [12, 1, 2, 3, 6, 7], // Orlando - verão e Natal
+        "LIS": [6, 7, 8, 9], // Lisboa - verão europeu
+        "JFK": [5, 6, 7, 8, 9, 12], // NYC - verão e Natal
+        "MIA": [11, 12, 1, 2, 3, 4], // Miami - inverno
+        "MAD": [5, 6, 7, 8, 9], // Madrid - verão
+        "CDG": [5, 6, 7, 8, 9], // Paris - verão
+        "FLL": [11, 12, 1, 2, 3, 4] // Fort Lauderdale - inverno
+    };
+
+    const isHighSeason = seasonalPatterns[destino]?.includes(month);
+    console.log(`📅 Mês ${month}, Alta temporada: ${isHighSeason}`);
+
+    // Retorna 15 se alta temporada, 5 se baixa, e 0 se destino não estiver definido
+    return isHighSeason !== undefined ? (isHighSeason ? 15 : 5) : 0;
+}
+
 
         calculatePotentialPassengers(mercado) {
             const base = 150000;
@@ -220,5 +223,6 @@ class RealTimeOpportunityHunter {
             }
         }
     }
+
 
     module.exports = RealTimeOpportunityHunter;
